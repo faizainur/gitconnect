@@ -1,12 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:git_connect/widgets/explore_item_card.dart';
+import 'package:git_connect/widgets/no_activities_found.dart';
 import 'package:git_connect/widgets/recent_activity_item.dart';
+import 'package:git_connect/widgets/show_more_activities.dart';
 
 void main() => runApp(MainApp());
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
+  @override
+  _MainAppState createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   int activities = 3;
+  List<Widget> activitiesList = List<Widget>();
+
+  ShowMoreActivitiesButton showMoreActivitiesButton =
+      ShowMoreActivitiesButton();
+
+  NoActivitiesFoundItem noActivitiesFoundItem = NoActivitiesFoundItem();
+
+  void fetchActivities() {
+    if (activitiesList.contains(showMoreActivitiesButton)) {
+      activitiesList.remove(showMoreActivitiesButton);
+    }
+    if (activitiesList.contains(noActivitiesFoundItem)) {
+      activitiesList.remove(noActivitiesFoundItem);
+    }
+    setState(() {
+      if (activitiesList.length == 0) {
+        activitiesList.add(RecentActivityItem(
+          first: true,
+        ));
+      } else if (activitiesList.length < 4) {
+        activitiesList.add(RecentActivityItem(
+          first: false,
+        ));
+      }
+      activitiesList.add(showMoreActivitiesButton);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (activitiesList.length == 0) {
+      activitiesList.add(noActivitiesFoundItem);
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -15,8 +54,11 @@ class MainApp extends StatelessWidget {
           backgroundColor: Color(0xff111111),
           title: Center(
             child: Text(
-              "Git Connect",
-              style: TextStyle(fontWeight: FontWeight.w900),
+              "GitConnect",
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1
+              ),
             ),
           ),
           leading: IconButton(
@@ -33,7 +75,9 @@ class MainApp extends StatelessWidget {
                 Icons.person,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                fetchActivities();
+              },
             )
           ],
         ),
@@ -46,23 +90,47 @@ class MainApp extends StatelessWidget {
                 "Recent activities",
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 17,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: activities == 3 ? 180 : activities == 2 ? 120 : 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xff2d2d2d),
-                ),
-                child: ListView(
-                  children: <Widget>[
-                    RecentActivityItem(),
-                  ],
-                ),
+              Column(children: activitiesList),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Explore repositories",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ExploreItemCard(),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ExploreItemCard(),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ExploreItemCard(),
+                      )),
+                ],
               )
             ],
           ),
