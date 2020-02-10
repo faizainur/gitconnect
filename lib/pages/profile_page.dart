@@ -8,8 +8,25 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Color(0xff111111),
+        elevation: 0,
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        color: Color(0xff111111),
+        child: Column(
+          children: <Widget>[
+            Text("Adad"),
+          ],
+        ),
+      ),
     );
   }
 }

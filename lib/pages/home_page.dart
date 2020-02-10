@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_connect/pages/profile_page.dart';
 import 'package:git_connect/widgets/explore_item_card.dart';
 import 'package:git_connect/widgets/no_activities_found.dart';
 import 'package:git_connect/widgets/recent_activity_item.dart';
@@ -42,7 +43,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (activitiesList.length == 0) {
-      activitiesList.add(noActivitiesFoundItem);
+      activitiesList.add(RecentActivityItem(
+        first: true,
+      ));
+      activitiesList.add(RecentActivityItem(
+        first: false,
+      ));
+      activitiesList.add(showMoreActivitiesButton);
     }
 
     return Scaffold(
@@ -70,7 +77,15 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
             onPressed: () {
-              fetchActivities();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProfilePage();
+                  },
+                ),
+              );
+              // print("Profiel");
             },
           )
         ],
