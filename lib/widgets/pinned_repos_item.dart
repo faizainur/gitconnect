@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-class RepositoryListItemHome extends StatelessWidget {
+class PinnedReposItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: EdgeInsets.symmetric(
+        vertical: 8,
+        // horizontal: 10,
+      ),
       height: 105,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           // color: Colors.red,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white)),
+          border: Border.all(color: Colors.white, width: 0.5)),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
