@@ -56,10 +56,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xff111111),
+        // backgroundColor: Colors.grey[100],
         title: Center(
           child: Text(
             "GitConnect",
-            style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1,
+              color: Colors.white,
+            ),
           ),
         ),
         leading: IconButton(
@@ -92,6 +97,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         color: Color(0xff111111),
+        // color: Colors.grey[100],
         child: ListView(
           padding: EdgeInsets.all(10),
           children: <Widget>[
